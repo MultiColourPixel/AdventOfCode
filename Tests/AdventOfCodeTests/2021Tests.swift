@@ -1,4 +1,5 @@
 import XCTest
+
 @testable import AdventOfCode
 
 final class AdventOfCode2021Tests: XCTestCase {
