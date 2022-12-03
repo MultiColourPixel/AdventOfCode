@@ -86,10 +86,28 @@ struct AdventOfCode2022 {
         }
         .reduce(0, +)
     }
+    
+    func day3_1() -> Int {
+        let input: [String] = loadFile()
+        
+        let result = input.map { Array($0) }
+            .map { bag in
+                let compartmentSize = bag.count / 2
+                let firstHalf = Set(bag[0..<compartmentSize])
+                let secondHalf = Set(bag[compartmentSize...])
+                let difference = firstHalf.intersection(secondHalf)
+                return difference.first!
+            }
+            .map(Day3_1.value(forCharacter:))
+            .reduce(0, +)
+        
+        return result
+    }
 }
 
 extension AdventOfCode2022: FileLoading { }
 
+// MARK: Day 2
 private extension AdventOfCode2022 {
     enum RockPaperScissors: Substring {
         enum DesiredOutcome: Substring {
@@ -146,6 +164,20 @@ private extension AdventOfCode2022 {
             case (.scissors, .win): return .rock
             case (.scissors, .lose): return .paper
             default: return self
+            }
+        }
+    }
+}
+
+// MARK: Day 3
+private extension AdventOfCode2022 {
+    struct Day3_1 {
+        static func value(forCharacter character: Character) -> Int {
+            guard let ascii = character.asciiValue else { fatalError() }
+            if character.isUppercase {
+                return Int(ascii - 38)
+            } else {
+                return Int(ascii - 96)
             }
         }
     }

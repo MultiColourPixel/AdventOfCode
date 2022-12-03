@@ -28,4 +28,10 @@ final class AdventOfCode2022Tests: XCTestCase {
         XCTAssertEqual(result, 16862)
         print(#function + ": \(result)")
     }
+    
+    func testDay3_part1() {
+        let result = advent.day3_1()
+        XCTAssertEqual(result, 8088)
+        print(#function + ": \(result)")
+    }
 }
