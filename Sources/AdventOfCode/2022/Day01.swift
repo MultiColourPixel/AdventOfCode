@@ -2,8 +2,6 @@
 //  Created by Eddy Gammon on 04/12/2022.
 //
 
-import Foundation
-
 extension AdventOfCode2022 {
     func day1_1() -> Int {
         let input: [Int?] = loadFile(omittingEmptySubsequences: false)
