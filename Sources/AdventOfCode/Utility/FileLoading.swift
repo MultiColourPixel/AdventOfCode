@@ -61,7 +61,8 @@ extension FileLoading {
         
         // last 4 are the `_X()` where X is the challenge part indicator
         let file = name.dropLast(4) + (withExtension.isEmpty ? "" :  "." + withExtension)
-        let year = ((year as NSString).lastPathComponent as NSString).deletingPathExtension
+        var yearPath = year.split(separator: "/")
+        let year = yearPath.remove(at: yearPath.count - 2)
         let filename = year + "/" + file
         
         var fileURL: URL?
