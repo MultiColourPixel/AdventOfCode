@@ -1,3 +1,3 @@
-# AdventOfCode
+# Advent of Code
 
-A description of this package.
+Project for following along the challenges set by [Advent of Code](https://adventofcode.com/).
