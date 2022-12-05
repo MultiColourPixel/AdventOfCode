@@ -80,4 +80,13 @@ final class AdventOfCode2022Tests: XCTestCase {
         XCTAssertEqual(result, 847)
         print(#function + ": \(result)")
     }
+    
+    func testDay5_part1() {
+        var result: String = ""
+        measure {
+            result = advent.day5_1()
+        }
+        XCTAssertEqual(result, "TGWSMRBPN")
+        print(#function + ": \(result)")
+    }
 }
