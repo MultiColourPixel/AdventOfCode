@@ -8,9 +8,35 @@ import Foundation
 
 extension AdventOfCode2022 {
     func day5_1() -> String {
-        let input: [String] = loadFile(omittingEmptySubsequences: false).dropLast()
+        var (instructions, stacks) = input()
+
+        for instruction in instructions {
+            var toStack = stacks[instruction.to]!
+            var fromStack = stacks[instruction.from]!
+            for _ in 0 ..< instruction.amount {
+                let drop = fromStack.removeLast()
+                toStack.append(drop)
+            }
+            stacks[instruction.to] = toStack
+            stacks[instruction.from] = fromStack
+        }
         
-        guard let inputSplitIndex = input.firstIndex(where: \String.isEmpty) else { return "" }
+        var result = ""
+        let keys = stacks.keys.sorted()
+        for key in keys {
+            result += stacks[key, default: []].last ?? ""
+        }
+        
+        return result
+    }
+        
+}
+
+private extension AdventOfCode2022 {
+    func input() -> ([Instruction], [Int: [String]]) {
+        let input: [String] = loadFile(name: "day5", omittingEmptySubsequences: false).dropLast()
+        
+        guard let inputSplitIndex = input.firstIndex(where: \String.isEmpty) else { return ([],[:]) }
         let instructions = input.dropFirst(inputSplitIndex + 1)
             .compactMap { rawInstructions in
                 rawInstructions.wholeMatch(of: Self.instructionRegex).map { match in
@@ -19,7 +45,7 @@ extension AdventOfCode2022 {
             }
         
         let rawStacks = input[0..<inputSplitIndex].dropLast()
-        var stacks = rawStacks
+        let stacks = rawStacks
             .map {
                 $0.chunks(ofCount: 4)
             }
@@ -52,24 +78,7 @@ extension AdventOfCode2022 {
                 return partial
             })
         
-        for instruction in instructions {
-            var toStack = stacks[instruction.to]!
-            var fromStack = stacks[instruction.from]!
-            for _ in 0 ..< instruction.amount {
-                let drop = fromStack.removeLast()
-                toStack.append(drop)
-            }
-            stacks[instruction.to] = toStack
-            stacks[instruction.from] = fromStack
-        }
-        
-        var result = ""
-        let keys = stacks.keys.sorted()
-        for key in keys {
-            result += stacks[key, default: []].last ?? ""
-        }
-        
-        return result
+        return (instructions, stacks)
     }
 }
 
