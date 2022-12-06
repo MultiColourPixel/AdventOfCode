@@ -29,7 +29,28 @@ extension AdventOfCode2022 {
         
         return result
     }
+    
+    func day5_2() -> String {
+        var (instructions, stacks) = input()
+        for instruction in instructions {
+            var fromStack = stacks[instruction.from, default: []]
+            var toStack = stacks[instruction.to, default: []]
+            
+            let toMove = fromStack[(fromStack.endIndex-instruction.amount)...]
+            toStack.append(contentsOf: toMove)
+            fromStack.removeLast(instruction.amount)
+            
+            stacks[instruction.to] = toStack
+            stacks[instruction.from] = fromStack
+        }
         
+        var result = ""
+        let keys = stacks.keys.sorted()
+        for key in keys {
+            result += stacks[key, default: []].last ?? ""
+        }
+        return result
+    }
 }
 
 private extension AdventOfCode2022 {
