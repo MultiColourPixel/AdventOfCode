@@ -11,11 +11,10 @@ extension AdventOfCode2022 {
         var (instructions, stacks) = input()
 
         for instruction in instructions {
-            var toStack = stacks[instruction.to]!
-            var fromStack = stacks[instruction.from]!
+            var toStack = stacks[instruction.to, default: []]
+            var fromStack = stacks[instruction.from, default: []]
             for _ in 0 ..< instruction.amount {
-                let drop = fromStack.removeLast()
-                toStack.append(drop)
+                toStack.append(fromStack.removeLast())
             }
             stacks[instruction.to] = toStack
             stacks[instruction.from] = fromStack
@@ -32,6 +31,7 @@ extension AdventOfCode2022 {
     
     func day5_2() -> String {
         var (instructions, stacks) = input()
+        
         for instruction in instructions {
             var fromStack = stacks[instruction.from, default: []]
             var toStack = stacks[instruction.to, default: []]
@@ -49,6 +49,7 @@ extension AdventOfCode2022 {
         for key in keys {
             result += stacks[key, default: []].last ?? ""
         }
+        
         return result
     }
 }
