@@ -38,7 +38,7 @@ extension FileLoading {
     
     public func loadFileAsString(
         name: String = #function,
-        withExtension: String = "txt",
+        withExtension: String = "",
         year: String = #filePath
     ) -> String {
         guard
