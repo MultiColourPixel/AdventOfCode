@@ -2,7 +2,7 @@ import Foundation
 
 public protocol FileLoading {
     func loadFile<T: LosslessStringConvertible>(name: String, withExtension: String, year: String, omittingEmptySubsequences: Bool) -> [T?]
-    func loadFile<T: LosslessStringConvertible>(name: String, withExtension: String, year: String) -> [T]
+    func loadFile<T: LosslessStringConvertible>(name: String, withExtension: String, year: String, omittingEmptySubsequences: Bool) -> [T]
     func loadFileAsString(name: String, withExtension: String, year: String) -> String
 }
 
@@ -29,9 +29,10 @@ extension FileLoading {
     public func loadFile<T: LosslessStringConvertible>(
         name: String = #function,
         withExtension: String = "",
-        year: String = #filePath
+        year: String = #filePath,
+        omittingEmptySubsequences: Bool = true
     ) -> [T] {
-        loadFile(name: name, withExtension: withExtension, year: year)
+        loadFile(name: name, withExtension: withExtension, year: year, omittingEmptySubsequences: omittingEmptySubsequences)
             .compactMap { $0 }
     }
     
