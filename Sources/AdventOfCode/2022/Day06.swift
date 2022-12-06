@@ -3,5 +3,27 @@
 //
 
 extension AdventOfCode2022 {
-    
+    func day6_1() -> Int {
+        let input: String = loadFileAsString().trimmingCharacters(in: .whitespacesAndNewlines)
+        let array = Array(input)
+        
+        var lastFourCharacters = array[0..<4]
+        var uniqueIndex = 0
+        
+        // assuming we don't have the initial four characters as the marker
+        for index in 4..<array.count {
+            let char = array[index]
+            
+            lastFourCharacters.append(char)
+            lastFourCharacters.removeFirst()
+            
+            if Set(lastFourCharacters).count == 4 {
+                uniqueIndex = index
+                break
+            }
+        }
+        
+        
+        return uniqueIndex + 1
+    }
 }
